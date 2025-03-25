@@ -27,9 +27,9 @@ def ensure_output_dir(directory='output'):
     """
     # Создаем абсолютный путь, если передан относительный
     if not os.path.isabs(directory):
-        # Получаем путь к корню проекта (родительская директория текущего файла)
+        # Получаем путь к корню проекта (родительская директория utils)
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        project_root = os.path.dirname(os.path.dirname(current_dir))
+        project_root = os.path.dirname(current_dir)  # Go up only one level to stay in project
         full_path = os.path.join(project_root, directory)
     else:
         full_path = directory
