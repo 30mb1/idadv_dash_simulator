@@ -7,12 +7,12 @@ import pandas as pd
 import plotly.graph_objects as go
 from dash import Input, Output, State, callback, html
 
-from idadv_dash_simulator.utils.economy import calculate_gold_per_sec
-from idadv_dash_simulator.utils.plotting import create_subplot_figure, add_time_series, create_bar_chart
-from idadv_dash_simulator.utils.data_processing import extract_upgrades_timeline, extract_resource_data
-from idadv_dash_simulator.utils.export import export_gold_balance_table
-from idadv_dash_simulator.config.dashboard_config import PLOT_COLORS, STYLE_METRICS_BOX, STYLE_FLEX_ROW
-from idadv_dash_simulator.dashboard import app
+from utils.economy import calculate_gold_per_sec
+from utils.plotting import create_subplot_figure, add_time_series, create_bar_chart
+from utils.data_processing import extract_upgrades_timeline, extract_resource_data
+from utils.export import export_gold_balance_table
+from config.dashboard_config import PLOT_COLORS, STYLE_METRICS_BOX, STYLE_FLEX_ROW
+from dashboard import app
 
 @app.callback(
     [Output("gold-per-sec-progression", "figure"),

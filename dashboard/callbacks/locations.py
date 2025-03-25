@@ -7,11 +7,11 @@ import pandas as pd
 import plotly.graph_objects as go
 from dash import Input, Output, State, callback, html
 
-from idadv_dash_simulator.utils.plotting import create_subplot_figure, add_time_series, create_bar_chart
-from idadv_dash_simulator.utils.data_processing import extract_location_data, extract_upgrades_timeline
-from idadv_dash_simulator.utils.export import export_location_upgrades_table
-from idadv_dash_simulator.dashboard import app
-from idadv_dash_simulator.config.simulation_config import create_sample_config
+from utils.plotting import create_subplot_figure, add_time_series, create_bar_chart
+from utils.data_processing import extract_location_data, extract_upgrades_timeline
+from utils.export import export_location_upgrades_table
+from dashboard import app
+from config.simulation_config import create_sample_config
 
 @app.callback(
     Output("locations-upgrades", "figure"),
@@ -474,7 +474,7 @@ def update_locations_cost_table(data, auto_run_data):
         return empty_data, empty_columns, []
     
     # Создаем новую конфигурацию, поскольку у нас есть только параметры из data
-    from idadv_dash_simulator.config.simulation_config import create_sample_config
+    from config.simulation_config import create_sample_config
     
     # Получаем базовую конфигурацию
     try:
