@@ -2,8 +2,8 @@
 Конфигурационный файл для настроек симуляции.
 """
 
-from idadv_dash_simulator.models.enums import LocationRarityType
-from idadv_dash_simulator.models.config import (
+from models.enums import LocationRarityType
+from models.config import (
     LocationLevel,
     LocationRarityConfig,
     LocationConfig,
@@ -12,7 +12,7 @@ from idadv_dash_simulator.models.config import (
     EconomyConfig,
     TappingConfig
 )
-from idadv_dash_simulator.utils.economy import calculate_gold_per_sec
+from utils.economy import calculate_gold_per_sec
 
 def create_sample_config() -> SimulationConfig:
     """
