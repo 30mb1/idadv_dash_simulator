@@ -32,10 +32,16 @@ def update_gold_progression(base_gold, earn_coefficient):
         list: [figure, table_data]
     """
     if base_gold is None or earn_coefficient is None:
-        return {}, []
+        empty_figure = go.Figure()
+        empty_figure.update_layout(
+            title="Enter base gold and earn coefficient values",
+            xaxis={"visible": False},
+            yaxis={"visible": False}
+        )
+        return empty_figure, []
     
-    # Рассчитываем значения для первых 10 уровней
-    levels = list(range(1, 11))
+    # Рассчитываем значения для первых 20 уровней
+    levels = list(range(1, 21))
     gold_per_sec_values = [calculate_gold_per_sec(base_gold, earn_coefficient, level) for level in levels]
     
     # Создаем фигуру
@@ -49,56 +55,46 @@ def update_gold_progression(base_gold, earn_coefficient):
         mode='lines+markers',
         line=dict(color=PLOT_COLORS["gold"], width=2),
         marker=dict(size=8),
-        hovertemplate="Уровень %{x}<br>Gold/sec: %{y:.4f}"
+        hovertemplate="Level %{x}<br>Gold/sec: %{y:.4f}"
     ))
     
-    # Настраиваем макет
+    # Обновляем layout
     fig.update_layout(
-        title={
-            'text': "Progression of gold earnings by levels",
-            'y': 0.95,
-            'x': 0.5,
-            'xanchor': 'center',
-            'yanchor': 'top',
-            'font': {'size': 20}
-        },
-        xaxis={
-            'title': "Character level",
-            'title_font': {'size': 14},
-            'tickfont': {'size': 12},
-            'gridcolor': 'lightgray'
-        },
-        yaxis={
-            'title': "Gold per second (Gold/sec)",
-            'title_font': {'size': 14},
-            'tickfont': {'size': 12},
-            'gridcolor': 'lightgray',
-            'tickformat': '.4f'
-        },
-        showlegend=False,  # Убираем легенду, так как у нас один график
-        hovermode="x unified",
-        plot_bgcolor='white'
+        title="Gold per second progression by level",
+        xaxis_title="Character Level",
+        yaxis_title="Gold per second",
+        hovermode='x unified',
+        showlegend=True,
+        plot_bgcolor='white',
+        paper_bgcolor='white'
     )
     
-    # Подготавливаем данные для таблицы
-    table_data = []
-    prev_value = None
+    # Добавляем сетку
+    fig.update_xaxes(gridcolor='lightgray', showgrid=True)
+    fig.update_yaxes(gridcolor='lightgray', showgrid=True)
     
-    for level, value in zip(levels, gold_per_sec_values):
-        growth = "-"
-        if prev_value is not None:
-            growth_pct = (value / prev_value - 1) * 100
-            growth = f"+{growth_pct:.2f}%"
+    # Создаем данные для таблицы
+    table_data = []
+    prev_gold = None
+    
+    for level, gold_per_sec in zip(levels, gold_per_sec_values):
+        gold_per_hour = gold_per_sec * 3600
+        gold_per_day = gold_per_sec * 86400
+        
+        growth = ""
+        if prev_gold is not None:
+            growth_pct = (gold_per_sec / prev_gold - 1) * 100
+            growth = f"+{growth_pct:.1f}%"
         
         table_data.append({
             "level": level,
-            "gold_per_sec": f"{value:.4f}",
-            "gold_per_hour": f"{value * 3600:.2f}",
-            "gold_per_day": f"{value * 86400:.2f}",
+            "gold_per_sec": f"{gold_per_sec:.4f}",
+            "gold_per_hour": f"{gold_per_hour:.2f}",
+            "gold_per_day": f"{gold_per_day:.2f}",
             "growth": growth
         })
         
-        prev_value = value
+        prev_gold = gold_per_sec
     
     return fig, table_data
 
@@ -402,30 +398,30 @@ def update_economy_metrics(data, auto_run_data):
 
 
 @app.callback(
-    Output("upgrades-history-table", "data"),
-    Output("upgrades-history-table", "columns"),
+    [Output("upgrades-history-table", "data"),
+     Output("upgrades-history-table", "columns")],
     [Input("simulation-data-store", "data"),
      Input("auto-run-store", "data")],
     prevent_initial_call=True
 )
 def update_upgrades_history(data, auto_run_data):
     """
-    Обновляет таблицу баланса золота.
+    Обновляет таблицу истории улучшений.
     
     Args:
         data: Данные симуляции
         auto_run_data: Данные о состоянии автозапуска
         
     Returns:
-        list: [данные таблицы, столбцы]
+        tuple: (данные таблицы, колонки таблицы)
     """
     # Проверяем, была ли запущена симуляция
     if not auto_run_data or not auto_run_data.get("auto_run"):
         empty_columns = [
-            {"name": "День", "id": "День"},
-            {"name": "Информация", "id": "Информация"}
+            {"name": "Day", "id": "Day"},
+            {"name": "Information", "id": "Information"}
         ]
-        empty_data = [{"День": "", "Информация": "Start simulation to display data"}]
+        empty_data = [{"Day": "", "Information": "Run simulation to display data"}]
         return empty_data, empty_columns
     
     if data is None or "history" not in data:
@@ -435,7 +431,7 @@ def update_upgrades_history(data, auto_run_data):
     if not history:
         return [], []
     
-    # Собираем все действия из истории
+    # Формируем данные для таблицы
     actions_data = []
     export_data = []
     
@@ -460,39 +456,39 @@ def update_upgrades_history(data, auto_run_data):
             
             # Данные для отображения
             actions_data.append({
-                "День": day + 1,  # День начинается с 1
-                "Время": f"{hours:02d}:{minutes:02d}",
-                "Событие": event,
-                "Золото ДО": f"{action['gold_before']:,.0f}",
-                "Изменение": f"{action['gold_change']:,.0f}",
-                "Баланс": f"{action['gold_after']:,.0f}"
+                "Day": day + 1,  # День начинается с 1
+                "Time": f"{hours:02d}:{minutes:02d}",
+                "Event": event,
+                "Gold before": f"{action['gold_before']:,.0f}",
+                "Change": f"{action['gold_change']:,.0f}",
+                "Balance": f"{action['gold_after']:,.0f}"
             })
             
             # Данные для экспорта CSV
             export_data.append({
-                "День": day + 1,  # День начинается с 1
-                "Время": f"{hours:02d}:{minutes:02d}",
-                "Событие": event,
-                "Золото ДО": action['gold_before'],
-                "Изменение": action['gold_change'],
-                "Баланс": action['gold_after']
+                "Day": day + 1,
+                "Time": f"{hours:02d}:{minutes:02d}",
+                "Event": event,
+                "Gold before": action['gold_before'],
+                "Change": action['gold_change'],
+                "Balance": action['gold_after']
             })
     
     # Сортируем по дню и времени
-    actions_data = sorted(actions_data, key=lambda x: (x["День"], x["Время"]))
-    export_data = sorted(export_data, key=lambda x: (x["День"], x["Время"]))
+    actions_data = sorted(actions_data, key=lambda x: (x["Day"], x["Time"]))
+    export_data = sorted(export_data, key=lambda x: (x["Day"], x["Time"]))
     
-    # Определяем столбцы
+    # Определяем колонки
     columns = [
-        {"name": "День", "id": "День"},
-        {"name": "Время", "id": "Время"},
-        {"name": "Событие", "id": "Событие"},
-        {"name": "Золото ДО", "id": "Золото ДО"},
-        {"name": "Изменение", "id": "Изменение"},
-        {"name": "Баланс", "id": "Баланс"}
+        {"name": "Day", "id": "Day", "type": "numeric"},
+        {"name": "Time", "id": "Time"},
+        {"name": "Event", "id": "Event"},
+        {"name": "Gold before", "id": "Gold before"},
+        {"name": "Change", "id": "Change"},
+        {"name": "Balance", "id": "Balance"}
     ]
     
-    # Экспортируем таблицу в CSV (используем необработанные числовые данные)
+    # Экспортируем таблицу в CSV (используем данные с числовыми значениями)
     export_gold_balance_table(export_data)
     
     return actions_data, columns

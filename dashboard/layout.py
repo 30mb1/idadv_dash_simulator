@@ -341,7 +341,7 @@ def create_locations_tab():
     return html.Div([
         # Location costs table
         html.Div([
-            html.H4("Location Analysis", className="tab-section-title"),
+            html.H4("Location Costs", className="tab-section-title"),
             html.Div([
                 DataTable(
                     id="locations-cost-table",
