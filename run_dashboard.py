@@ -19,4 +19,4 @@ from dashboard import app
 
 if __name__ == "__main__":
     print(f"Запуск дашборда Indonesian Adventure на порту {PORT}")
-    app.run_server(debug=DEBUG_MODE, port=PORT)
+    app.run_server(debug=DEBUG_MODE, port=PORT, host="0.0.0.0")
