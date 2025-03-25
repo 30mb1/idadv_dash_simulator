@@ -15,11 +15,11 @@ from pathlib import Path
 # Добавляем корневую директорию проекта в sys.path для корректного импорта модулей
 sys.path.insert(0, os.path.abspath(os.path.dirname(os.path.dirname(__file__))))
 
-from idadv_dash_simulator.simulator import Simulator
-from idadv_dash_simulator.config.simulation_config import create_sample_config
-from idadv_dash_simulator.utils.economy import format_time
-from idadv_dash_simulator.utils.validation import is_config_valid
-from idadv_dash_simulator.models.config import EconomyConfig, SimulationAlgorithm, StartingBalanceConfig, TappingConfig
+from simulator import Simulator
+from config.simulation_config import create_sample_config
+from utils.economy import format_time
+from utils.validation import is_config_valid
+from models.config import EconomyConfig, SimulationAlgorithm, StartingBalanceConfig, TappingConfig
 
 def parse_arguments():
     """
