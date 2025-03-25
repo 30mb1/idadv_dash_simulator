@@ -8,8 +8,8 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from dash import Input, Output, State, callback, html
 
-from idadv_dash_simulator.utils.plotting import create_subplot_figure, add_time_series, create_bar_chart
-from idadv_dash_simulator.utils.data_processing import (
+from utils.plotting import create_subplot_figure, add_time_series, create_bar_chart
+from utils.data_processing import (
     extract_upgrades_timeline, 
     calculate_intervals,
     calculate_upgrades_per_day,
@@ -18,9 +18,9 @@ from idadv_dash_simulator.utils.data_processing import (
     extract_resource_data,
     extract_daily_events_data
 )
-from idadv_dash_simulator.utils.export import export_daily_events_table
-from idadv_dash_simulator.config.dashboard_config import PLOT_COLORS
-from idadv_dash_simulator.dashboard import app
+from utils.export import export_daily_events_table
+from config.dashboard_config import PLOT_COLORS
+from dashboard import app
 
 @app.callback(
     [Output("progression-pace", "figure"),

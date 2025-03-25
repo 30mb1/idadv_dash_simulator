@@ -136,9 +136,6 @@ def main():
     # Создаем конфигурацию с настройками по умолчанию
     config = create_sample_config()
     
-    # Импортируем необходимые классы
-    from idadv_dash_simulator.models.config import StartingBalanceConfig
-    
     # Обновляем конфигурацию на основе аргументов
     if args.base_gold is not None or args.earn_coefficient is not None:
         base_gold = args.base_gold if args.base_gold is not None else config.economy.base_gold_per_sec

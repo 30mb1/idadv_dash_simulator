@@ -4,7 +4,7 @@
 
 from typing import Dict, List, Optional, Union, Any
 import logging
-from idadv_dash_simulator.models.config import SimulationConfig, LocationConfig, UserLevelConfig
+from models.config import SimulationConfig, LocationConfig, UserLevelConfig
 
 logger = logging.getLogger(__name__)
 

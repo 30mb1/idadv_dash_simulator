@@ -1,8 +1,8 @@
 from dataclasses import dataclass, field
 from typing import Dict
 
-from idadv_dash_simulator.models.enums import LocationRarityType
-from idadv_dash_simulator.models.config import LocationLevel
+from models.enums import LocationRarityType
+from models.config import LocationLevel
 
 @dataclass
 class Location:

@@ -3,11 +3,11 @@ import uuid
 import copy
 from typing import Dict, List, Optional
 
-from idadv_dash_simulator.models.config import UserLevelConfig, EconomyConfig, SimulationAlgorithm, TappingConfig
-from idadv_dash_simulator.workflow.balance import Balance
-from idadv_dash_simulator.workflow.location import Location
-from idadv_dash_simulator.workflow.simulation_response import SimulationResponse
-from idadv_dash_simulator.workflow.tapping import TappingEngine
+from models.config import UserLevelConfig, EconomyConfig, SimulationAlgorithm, TappingConfig
+from workflow.balance import Balance
+from workflow.location import Location
+from workflow.simulation_response import SimulationResponse
+from workflow.tapping import TappingEngine
 
 logging.basicConfig(
     level=logging.INFO,

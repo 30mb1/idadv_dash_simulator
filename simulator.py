@@ -7,14 +7,14 @@
 import logging
 from typing import Dict, List, Optional, Union
 
-from idadv_dash_simulator.models.config import SimulationConfig
-from idadv_dash_simulator.models.enums import LocationRarityType
-from idadv_dash_simulator.workflow.location import Location
-from idadv_dash_simulator.workflow.workflow import Workflow
-from idadv_dash_simulator.workflow.simulation_response import SimulationResponse
-from idadv_dash_simulator.workflow.tapping import TappingEngine
+from models.config import SimulationConfig
+from models.enums import LocationRarityType
+from workflow.location import Location
+from workflow.workflow import Workflow
+from workflow.simulation_response import SimulationResponse
+from workflow.tapping import TappingEngine
 
-from idadv_dash_simulator.config.simulation_config import create_sample_config
+from config.simulation_config import create_sample_config
 
 logging.basicConfig(
     level=logging.INFO,

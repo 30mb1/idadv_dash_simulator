@@ -7,7 +7,7 @@ from plotly.subplots import make_subplots
 from typing import Dict, List, Any, Tuple, Optional
 import pandas as pd
 
-from idadv_dash_simulator.config.dashboard_config import PLOT_COLORS, DEFAULT_FIGURE_LAYOUT
+from config.dashboard_config import PLOT_COLORS, DEFAULT_FIGURE_LAYOUT
 
 def create_subplot_figure(
     rows: int, 

@@ -6,7 +6,7 @@ from typing import List, Dict, Any
 from dash import dcc, html
 from dash.dash_table import DataTable
 
-from idadv_dash_simulator.config.dashboard_config import (
+from config.dashboard_config import (
     CHECKS_PER_DAY_MIN, CHECKS_PER_DAY_MAX, CHECKS_PER_DAY_DEFAULT,
     COOLDOWN_MULTIPLIER_MIN, COOLDOWN_MULTIPLIER_MAX, COOLDOWN_MULTIPLIER_STEP, COOLDOWN_MULTIPLIER_DEFAULT,
     DEFAULT_BASE_GOLD_PER_SEC, DEFAULT_EARN_COEFFICIENT,
@@ -18,8 +18,8 @@ from idadv_dash_simulator.config.dashboard_config import (
     DEFAULT_MAX_ENERGY, DEFAULT_TAP_SPEED, DEFAULT_TAP_COEF, DEFAULT_IS_TAPPING,
     TAPPING_COLORS, TAPPING_GRAPH_LAYOUT, LEVEL_PROGRESS_COLORS, DEFAULT_FIGURE_LAYOUT
 )
-from idadv_dash_simulator.models.config import SimulationAlgorithm
-from idadv_dash_simulator.simulator import Simulator
+from models.config import SimulationAlgorithm
+from simulator import Simulator
 
 def create_settings_panel():
     """

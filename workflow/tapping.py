@@ -7,7 +7,7 @@ import logging
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
 
-from idadv_dash_simulator.models.config import TappingConfig
+from models.config import TappingConfig
 
 logger = logging.getLogger("TappingModule")
 

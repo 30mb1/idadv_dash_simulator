@@ -10,11 +10,11 @@ from typing import Dict, List, Any, Tuple, Optional
 import json
 from dash.exceptions import PreventUpdate
 
-from idadv_dash_simulator.simulator import Simulator
-from idadv_dash_simulator.config.simulation_config import create_sample_config
-from idadv_dash_simulator.utils.economy import format_time, calculate_gold_per_sec
-from idadv_dash_simulator.models.config import EconomyConfig, SimulationAlgorithm, SimulationConfig, StartingBalanceConfig, TappingConfig
-from idadv_dash_simulator.dashboard import app
+from simulator import Simulator
+from config.simulation_config import create_sample_config
+from utils.economy import format_time, calculate_gold_per_sec
+from models.config import EconomyConfig, SimulationAlgorithm, SimulationConfig, StartingBalanceConfig, TappingConfig
+from dashboard import app
 
 def create_status_message(status_type: str, message: str, details: Optional[str] = None) -> html.Div:
     """

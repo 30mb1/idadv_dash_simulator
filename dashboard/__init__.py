@@ -2,10 +2,9 @@
 Модуль дашборда для симулятора Indonesian Adventure.
 """
 
-import dash
+from dash import Dash
 from dash import html, dcc
 
-from idadv_dash_simulator.config.dashboard_config import APP_TITLE, ASSETS_FOLDER
 
 def create_dash_app():
     """
@@ -14,15 +13,15 @@ def create_dash_app():
     Returns:
         dash.Dash: Настроенное приложение Dash
     """
-    app_instance = dash.Dash(
+    from config.dashboard_config import APP_TITLE, ASSETS_FOLDER
+    from dashboard.layout import create_layout
+
+    app_instance = Dash(
         __name__,
-        suppress_callback_exceptions=True,
+        title=APP_TITLE,
         assets_folder=ASSETS_FOLDER,
-        title=APP_TITLE
+        suppress_callback_exceptions=True
     )
-    
-    # Импортируем компоненты
-    from idadv_dash_simulator.dashboard.layout import create_layout
     
     # Устанавливаем макет с хранилищем auto-run
     full_layout = create_layout(APP_TITLE)
@@ -34,5 +33,4 @@ def create_dash_app():
 # Создаем экземпляр приложения
 app = create_dash_app()
 
-# Регистрируем все коллбеки (импорт должен быть здесь, чтобы избежать циклических импортов)
-from idadv_dash_simulator.dashboard import callbacks 
+from dashboard import callbacks

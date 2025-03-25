@@ -9,11 +9,11 @@ from plotly.subplots import make_subplots
 from dash import Input, Output, State, callback, html, dcc
 from typing import Dict, List, Any, Tuple, Optional
 
-from idadv_dash_simulator.models.config import TappingConfig
-from idadv_dash_simulator.workflow.tapping import TappingEngine, TapDay, TapSession
-from idadv_dash_simulator.config.dashboard_config import TAPPING_COLORS, TAPPING_GRAPH_LAYOUT
-from idadv_dash_simulator.dashboard import app
-from idadv_dash_simulator.utils.export import export_tapping_stats_table
+from models.config import TappingConfig
+from workflow.tapping import TappingEngine, TapDay, TapSession
+from config.dashboard_config import TAPPING_COLORS, TAPPING_GRAPH_LAYOUT
+from dashboard import app
+from utils.export import export_tapping_stats_table
 
 @app.callback(
     [Output("tapping-stats-store", "data")],

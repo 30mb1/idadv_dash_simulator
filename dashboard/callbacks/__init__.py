@@ -3,8 +3,8 @@
 """
 
 # Импортируем все коллбеки для автоматической регистрации
-from idadv_dash_simulator.dashboard.simulation import *
-from idadv_dash_simulator.dashboard.callbacks.economy import *
-from idadv_dash_simulator.dashboard.callbacks.progression import *
-from idadv_dash_simulator.dashboard.callbacks.locations import *
-from idadv_dash_simulator.dashboard.callbacks.tapping import * 
+from dashboard.simulation import *
+from dashboard.callbacks.economy import *
+from dashboard.callbacks.progression import *
+from dashboard.callbacks.locations import *
+from dashboard.callbacks.tapping import * 
